@@ -16,14 +16,36 @@ spec:
     spec:
       containers:
       - name: mpi-worker
-        image: your-registry/mpi-sort:latest
-        command: ["sleep", "infinity"]
+        image: ynshung/mpi-sort:latest
+        command: ["/bin/bash", "-c"]
         volumeMounts:
-        - name: mpi-config
-          mountPath: /etc/mpi
+        - name: ssh-keys
+          mountPath: /etc/ssh-keys
+          readOnly: true
+        - name: ssh-config
+          mountPath: /etc/ssh-config
+          readOnly: true
+        args:
+        - |
+          apt-get update && apt-get install -y openssh-server
+          mkdir -p /root/.ssh
+          cp /etc/ssh-keys/ssh-privatekey /root/.ssh/id_rsa
+          cp /etc/ssh-keys/ssh-publickey /root/.ssh/id_rsa.pub
+          cp /etc/ssh-keys/authorized_keys /root/.ssh/authorized_keys
+          chmod 600 /root/.ssh/id_rsa
+          chmod 644 /root/.ssh/id_rsa.pub
+          chmod 644 /root/.ssh/authorized_keys
+          rm /etc/ssh/sshd_config
+          cp /etc/ssh-config/sshd_config /etc/ssh
+          service ssh restart  # Use restart instead of just start
+          sleep infinity
         ports:
-        - containerPort: 2222
+        - containerPort: 22
       volumes:
-      - name: mpi-config
+      - name: ssh-keys
+        secret:
+          secretName: ssh-keys
+          defaultMode: 0600
+      - name: ssh-config
         configMap:
-          name: mpi-config
+          name: ssh-config

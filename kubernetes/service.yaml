@@ -8,4 +8,6 @@ spec:
   selector:
     app: mpi-worker
   ports:
-  - port: 2222
+    - protocol: TCP
+      port: 22
+      targetPort: 22
