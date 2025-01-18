@@ -1,0 +1,29 @@
+# kubernetes/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mpi-worker
+spec:
+  serviceName: mpi-service
+  replicas: 4
+  selector:
+    matchLabels:
+      app: mpi-worker
+  template:
+    metadata:
+      labels:
+        app: mpi-worker
+    spec:
+      containers:
+      - name: mpi-worker
+        image: your-registry/mpi-sort:latest
+        command: ["sleep", "infinity"]
+        volumeMounts:
+        - name: mpi-config
+          mountPath: /etc/mpi
+        ports:
+        - containerPort: 2222
+      volumes:
+      - name: mpi-config
+        configMap:
+          name: mpi-config

@@ -1,0 +1,11 @@
+# kubernetes/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mpi-config
+data:
+  hostfile: |
+    mpi-worker-0
+    mpi-worker-1
+    mpi-worker-2
+    mpi-worker-3
