@@ -21,7 +21,7 @@ kubectl apply -f kubernetes/
 kubectl get pods # Make sure all pods are running
 
 # Get the IP addresses of the pods, copy them temporarily
-kubectl get pods -o custom-columns="IP:.status.podIP"
+kubectl get pods -o custom-columns="IP:.status.podIP" --no-headers
 
 # Enter the master pod
 kubectl exec -it mpi-worker-0 -- bash
