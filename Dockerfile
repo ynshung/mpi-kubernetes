@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     wget \
     unzip \
+    nano \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
