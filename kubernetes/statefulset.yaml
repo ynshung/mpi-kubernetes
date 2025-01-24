@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mpi-worker
-        image: ynshung/mpi-sort:latest
+        image: ynshung/mpi-docker:latest
         command: ["/bin/bash", "-c"]
         volumeMounts:
         - name: ssh-keys
