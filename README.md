@@ -14,6 +14,8 @@ See also: Implementation in [Hadoop Docker](https://github.com/ynshung/hadoop-do
 
 ## Usage
 
+To modify the amount of workers, change the `replicas` value in `kubernetes/statefulset.yaml`. Default is set to 4 (including the master).
+
 ### Setup
 
 ```bash
@@ -47,7 +49,7 @@ The script counts the number of each words in a directory of text file containin
 # Run the MPI program for word count
 mpirun --allow-run-as-root \
     --hostfile hostfile \
-    -np 3 python3 /app/word_count_mpi.py
+    -np <amount of workers> python3 /app/word_count_mpi.py
 
 # Run word count without MPI
 python3 /app/word_count.py
@@ -60,7 +62,7 @@ The script calculates and sorts [Netflix movie ratings](https://www.kaggle.com/d
 # Run the MPI program for Netflix ratings
 mpirun --allow-run-as-root \
     --hostfile hostfile \
-    -np 3 python3 /app/netflix_mpi.py
+    -np <amount of workers> python3 /app/netflix_mpi.py
 
 # Run calculation without MPI
 python3 /app/netflix.py

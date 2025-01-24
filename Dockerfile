@@ -33,5 +33,4 @@ RUN wget https://github.com/ynshung/netflix-movie-rating-dataset/releases/downlo
 
 RUN mkdir /app/output
 
-COPY mpi_sort.py .
-COPY sort.py .
+COPY scripts/ /app/
