@@ -40,6 +40,7 @@ kubectl exec -it mpi-worker-0 -- bash
 
 # Create a hostfile
 echo "<paste copied ip addresses here>" > hostfile
+# (Optional) You may remove the master IP address from the hostfile
 ```
 
 ### Word Count
