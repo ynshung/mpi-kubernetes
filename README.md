@@ -47,10 +47,10 @@ echo "<paste copied ip addresses here>" > hostfile
 The script counts the number of each words in a directory of text file containing a [sample](https://www.corpusdata.org/formats.asp) of [NoW corpus](https://www.english-corpora.org/now/) and saves the results to a CSV file while tracking execution time.
 
 ```bash
-# Run the MPI program for word count
+# Run the MPI program for word count (with 3 workers)
 mpirun --allow-run-as-root \
     --hostfile hostfile \
-    -np <amount of workers> python3 /app/word_count_mpi.py
+    -np 3 python3 /app/word_count_mpi.py
 
 # Run word count without MPI
 python3 /app/word_count.py
@@ -60,11 +60,18 @@ python3 /app/word_count.py
 The script calculates and sorts [Netflix movie ratings](https://www.kaggle.com/datasets/rishitjavia/netflix-movie-rating-dataset/data) by average rating, saving the results to a CSV file while tracking execution time.
 
 ```bash
-# Run the MPI program for Netflix ratings
+# Run the MPI program for Netflix ratings (with 3 workers)
 mpirun --allow-run-as-root \
     --hostfile hostfile \
-    -np <amount of workers> python3 /app/netflix_mpi.py
+    -np 3 python3 /app/netflix_mpi.py
 
 # Run calculation without MPI
 python3 /app/netflix.py
+```
+
+### Get Results
+The results are saved in the `output` directory in the master pod. You can copy the results to your local machine with the following command:
+
+```bash
+kubectl cp -n default mpi-worker-0:/app/output output
 ```
